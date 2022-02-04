@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { NumberValueAccessor } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,14 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'deneme';
+  title: string = 'bookkeeper';
+
+  number: any = 4;
+
+  titles: Array<string> = ['angular', 'react', 'vue'];
+  
+  sum(x: number, y: number): number {
+
+    return x + y;
+  }
 }

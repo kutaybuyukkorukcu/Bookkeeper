@@ -1,0 +1,24 @@
+<div class="bg-white">
+    <div class="max-w-2xl mx-auto py-8 px-2 sm:py-12 sm:px-3 lg:max-w-7xl lg:px-4">
+      <div class="flex justify-center">
+        <input class="border-2 border-gray-300 bg-white h-10 px-5 pr-8 rounded-lg text-sm focus:outline-none"
+        type="search" placeholder="Search" [(ngModel)]="defaultQuery.q" (ngModelChange)="onChange()">
+      </div>
+      <h2 class="text-2xl font-extrabold tracking-tight text-gray-900">Book List</h2>
+      <div class="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
+          <div class="group relative" *ngFor="let simpleBook of simpleBooks">
+              <div class="flex items-center justify-center">
+                  <div class="bg-white rounded-xl overflow-hidden shadow-xl hover:scale-105 hover:shadow-2xl transform duration-500 cursor-pointer">
+                  <div class="p-4 h-48 flex justify-between flex-col">
+                      <h1 class="mt-4 text-xl font-bold cursor-pointer"> {{ simpleBook?.title }} </h1>
+                      <p class="mt-2 font-sans text-sm text-gray-700"> {{ simpleBook?.authors ? simpleBook.authors[0] : 'No editor found' }} </p>
+                  </div>
+                  <div class="relative">
+                      <img class="w-80 h-80" src="{{simpleBook?.thumbnail}}" />
+                  </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+    </div>
+</div>
