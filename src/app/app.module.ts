@@ -4,11 +4,19 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { BookListComponent } from './book-list/book-list.component';
 import { FormsModule } from '@angular/forms';
+import { BookComponent } from './book/book.component';
+import { HoverDirective } from './shared/hover.directive';
+import { CounterPipe } from './shared/counter.pipe';
+import { PriceCounterPipe } from './shared/priceCounter.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
-    BookListComponent
+    BookListComponent,
+    BookComponent,
+    HoverDirective,
+    CounterPipe,
+    PriceCounterPipe
   ],
   imports: [
     BrowserModule,

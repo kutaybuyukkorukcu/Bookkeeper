@@ -39,16 +39,33 @@ export namespace Books {
             }
             pdf: {
                 isAvailable: boolean;
+                acsTokenLink?: string;
             }
         }
         saleInfo: {
             country: string;
             isEbook: boolean;
             saleability: string;
-            retailPrice: {
+            retailPrice?: {
                 amount: number;
                 currencyCode: string;
-            }
+            },
+            listPrice?: {
+                amount: number;
+                currencyCode: string;
+            },
+            buyLink?: string,
+            offers?: Array<{
+                finskyOfferType?: number;
+                listPrice?: {
+                    amountInMicros: number;
+                    currencyCode: string
+                },
+                retailPrice?: {
+                    amountInMicros: number;
+                    currencyCode: string;
+                }
+            }>
         }
         searchInfo: {
             textSnippet: string;
@@ -61,10 +78,13 @@ export namespace Books {
             categories: Array<string>;
             contentVersion: string;
             description: string;
+            publisher?: string;
+            averageRating?: number;
+            ratingsCount?: number;
             imageLinks: {
                 smallThumbnail: string;
                 thumbnail: string;
-                medium: string;
+                medium?: string;
             }
             industryIdentifiers: Array<{
                 type: string;

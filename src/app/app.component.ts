@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NumberValueAccessor } from '@angular/forms';
+import { CartService } from './services/cart.service';
 
 @Component({
   selector: 'app-root',
@@ -13,6 +14,8 @@ export class AppComponent {
 
   titles: Array<string> = ['angular', 'react', 'vue'];
   
+  constructor(public cartService: CartService) {}
+
   sum(x: number, y: number): number {
 
     return x + y;

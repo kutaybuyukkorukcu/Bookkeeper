@@ -2,6 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { Books } from '../model/book.model';
+import { BookService } from '../services/book.service';
+import { CartService } from '../services/cart.service';
 
 @Component({
   selector: 'app-book-list',
@@ -11,7 +13,7 @@ import { Books } from '../model/book.model';
 export class BookListComponent implements OnInit, OnDestroy {
 
   defaultQuery: Books.BookRequest = {
-    maxResults: '20',
+    maxResults: '4',
     orderBy: 'relevance',
     q: 'angular'
   };
@@ -19,11 +21,11 @@ export class BookListComponent implements OnInit, OnDestroy {
   books!: Array<Books.BookDetail>;
   simpleBooks!: Array<Books.SimpleBookDetail>;
 
-  constructor(public http: HttpClient) { }
+  constructor(public bookService: BookService, public cartService: CartService) { }
 
   ngOnInit(): void {
 
-    this.getBooks(this.defaultQuery)
+    this.bookService.getBooks(this.defaultQuery)
       .subscribe((books) => {
         this.simpleBooks = this.buildSimpleBookDetail(books);
         console.log(this.simpleBooks);
@@ -31,16 +33,6 @@ export class BookListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-  }
-
-  public getBooks(bookRequest: Books.BookRequest): Observable<Array<Books.BookDetail>> {
-
-    const url = `https://www.googleapis.com/books/v1/volumes?maxResults=${bookRequest.maxResults}&orderBy=${bookRequest.orderBy}&q=${bookRequest.q}`;
-
-    return this.http.get(url)
-      .pipe(
-        map((response: any) => response.items)
-      );
   }
 
   public buildSimpleBookDetail(books: Array<Books.BookDetail>): Array<Books.SimpleBookDetail> {
@@ -67,10 +59,15 @@ export class BookListComponent implements OnInit, OnDestroy {
   public onChange() {
     console.log(this.defaultQuery.q)
 
-    this.getBooks(this.defaultQuery)
+    this.bookService.getBooks(this.defaultQuery)
     .subscribe((books) => {
       this.simpleBooks = this.buildSimpleBookDetail(books);
       console.log(this.simpleBooks);
     })
+  }
+
+  addBookToCart(book: Books.SimpleBookDetail) {
+    
+    this.cartService.addBookToCart(book);
   }
 }
